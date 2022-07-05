@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cd6b40e42b063019c368ac51ee8ae05",
+    "content-hash": "1b4e111221c2b4a373876d337d4a2b5c",
     "packages": [
         {
             "name": "brick/math",
@@ -2513,16 +2513,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.5",
+            "version": "v0.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "c23686f9c48ca202710dbb967df8385a952a2daf"
+                "reference": "3f5b5f8aaa979fbd0d1783173f4c82ad529fe621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/c23686f9c48ca202710dbb967df8385a952a2daf",
-                "reference": "c23686f9c48ca202710dbb967df8385a952a2daf",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/3f5b5f8aaa979fbd0d1783173f4c82ad529fe621",
+                "reference": "3f5b5f8aaa979fbd0d1783173f4c82ad529fe621",
                 "shasum": ""
             },
             "require": {
@@ -2583,9 +2583,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.5"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.6"
             },
-            "time": "2022-05-27T18:03:49+00:00"
+            "time": "2022-07-03T16:40:23+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -4906,6 +4906,55 @@
             "time": "2022-05-21T13:34:40+00:00"
         },
         {
+            "name": "textalk/websocket",
+            "version": "1.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Textalk/websocket-php.git",
+                "reference": "d05dbaa97500176447ffb1f1800573f23085ab13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Textalk/websocket-php/zipball/d05dbaa97500176447ffb1f1800573f23085ab13",
+                "reference": "d05dbaa97500176447ffb1f1800573f23085ab13",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 | ^8.0",
+                "psr/log": "^1 | ^2 | ^3"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/phpunit": "^8.0|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WebSocket\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Fredrik Liljegren"
+                },
+                {
+                    "name": "Sören Jensen",
+                    "email": "soren@abicart.se"
+                }
+            ],
+            "description": "WebSocket client and server",
+            "support": {
+                "issues": "https://github.com/Textalk/websocket-php/issues",
+                "source": "https://github.com/Textalk/websocket-php/tree/1.5.8"
+            },
+            "time": "2022-04-26T06:28:24+00:00"
+        },
+        {
             "name": "tightenco/ziggy",
             "version": "v1.4.6",
             "source": {
@@ -5024,6 +5073,49 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
             },
             "time": "2021-12-08T09:12:39+00:00"
+        },
+        {
+            "name": "unrealircd/unrealircd-rpc",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unrealircd/unrealircd-rpc-php.git",
+                "reference": "2e47289cf4ac28d98bbb4d58d162b10e5007bded"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unrealircd/unrealircd-rpc-php/zipball/2e47289cf4ac28d98bbb4d58d162b10e5007bded",
+                "reference": "2e47289cf4ac28d98bbb4d58d162b10e5007bded",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0|^8.1",
+                "textalk/websocket": "^1.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UnrealIRCd\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bram Matthys",
+                    "email": "syzop@vulnscan.org"
+                }
+            ],
+            "description": "JSON-RPC interface to UnrealIRCd",
+            "support": {
+                "irc": "ircs://irc.unrealircd.org/unreal-webpanel",
+                "issues": "https://github.com/unrealircd/unrealircd-rpc-php/issues",
+                "source": "https://github.com/unrealircd/unrealircd-rpc-php/tree/main"
+            },
+            "time": "2022-07-04T18:34:01+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -7958,7 +8050,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "unrealircd/unrealircd-rpc": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

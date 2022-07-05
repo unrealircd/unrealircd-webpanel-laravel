@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use JetBrains\PhpStorm\ArrayShape;
 
 class LoginRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class LoginRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -26,7 +27,8 @@ class LoginRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    #[ArrayShape(['username' => "string[]", 'password' => "string[]"])]
+    public function rules(): array
     {
         return [
             'username' => ['required', 'string', 'alpha_dash'],
@@ -39,9 +41,9 @@ class LoginRequest extends FormRequest
      *
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function authenticate()
+    public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
@@ -49,7 +51,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'username' => trans('auth.failed'),
             ]);
         }
 
@@ -61,9 +63,9 @@ class LoginRequest extends FormRequest
      *
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function ensureIsNotRateLimited()
+    public function ensureIsNotRateLimited(): void
     {
         if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
@@ -74,7 +76,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'username' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -86,8 +88,8 @@ class LoginRequest extends FormRequest
      *
      * @return string
      */
-    public function throttleKey()
+    public function throttleKey(): string
     {
-        return Str::lower($this->input('email')) . '|' . $this->ip();
+        return Str::lower($this->input('username')) . '|' . $this->ip();
     }
 }

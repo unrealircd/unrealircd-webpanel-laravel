@@ -1,26 +1,29 @@
 <?php
 
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\{
+    BanController,
+    DashboardController,
+    IndexController,
+    TestController
+};
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return redirect(route('login'));
+Route::get('/', IndexController::class)->name('index');
+
+Route::middleware(['auth'])->group(function () {
+    // todo: move all routes here that require a login to be accessible.
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', DashboardController::class)->name('dashboard'); // middleware: auth
 
-require __DIR__.'/auth.php';
+Route::put('/ban', [BanController::class, 'store'])->name('ban'); // middleware: auth
+Route::delete('/ban', [BanController::class, 'destroy']); // middleware: auth
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::get('/test', TestController::class)->name('test');

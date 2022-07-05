@@ -26,13 +26,13 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" id="floatingInput" placeholder="Username"
                                :class="form.errors.username ? 'is-invalid' : ''"
-                               v-model="form.data.username">
+                               v-model="form.username">
                         <label for="floatingInput">Username</label>
                     </div>
                     <div class="form-floating">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
                                :class="form.errors.username ? 'is-invalid' : ''"
-                               v-model="form.data.password">
+                               v-model="form.password">
                         <label for="floatingPassword">Password</label>
                     </div>
 
@@ -58,10 +58,8 @@ export default defineComponent({
         return {
             server_name: import.meta.env.VITE_APP_NAME,
             form: useForm({
-                data: {
-                    username: null,
-                    password: null,
-                }
+                username: null,
+                password: null,
             })
         }
     },
