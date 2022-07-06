@@ -2,24 +2,24 @@
     <h2>Channels</h2>
 
     <div class="mb-4 bg-dark rounded-3 bg-opacity-25">
-        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">Filter Table</h6>
+        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">{{ __('Filter Table') }}</h6>
         <div class="px-3 py-2 d-flex justify-content-between align-content-center align-items-center">
             <b-form-radio-group v-model="form.checkSelected" :options="filterOptions" class="align-self-center"
                                 @change="this.checkboxChecked"
                                 value-field="item" text-field="name" disabled-field="notEnabled">
             </b-form-radio-group>
 
-            <b-button variant="primary" @click.prevent="resetFilters">Clear Filters</b-button>
+            <b-button variant="primary" @click.prevent="resetFilters">{{ __('Clear Filters') }}</b-button>
         </div>
     </div>
 
     <b-table-simple hover responsive>
         <b-thead head-variant="dark">
             <b-tr>
-                <b-th>Name</b-th>
-                <b-th>Active Users</b-th>
-                <b-th>Modes</b-th>
-                <b-th>Topic</b-th>
+                <b-th>{{ __('Name') }}</b-th>
+                <b-th>{{ __('Active Users') }}</b-th>
+                <b-th>{{ __('Modes') }}</b-th>
+                <b-th>{{ __('Topic') }}</b-th>
             </b-tr>
         </b-thead>
         <b-tbody>
@@ -41,10 +41,10 @@ import { ref, defineComponent } from 'vue'
 import { useForm } from "@inertiajs/inertia-vue3";
 
 const filterOptions = [
-    { item: 'hide_secret', name: 'Hide Secret Channels (+s)' },
-    { item: 'hide_private', name: 'Hide Private Channels (+p)' },
-    { item: 'only_registered', name: 'Only registered Channels (+r)' },
-    { item: 'only_tls', name: 'Only TLS-enabled Channels (+Z)' },
+    { item: 'hide_secret', name: __('Hide Secret Channels') },
+    { item: 'hide_private', name: __('Hide Private Channels') },
+    { item: 'only_registered', name: __('Only registered Channels') },
+    { item: 'only_tls', name: __('Only TLS-enabled Channels') },
 ]
 
 export default defineComponent({

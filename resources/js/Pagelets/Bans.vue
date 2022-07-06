@@ -1,26 +1,26 @@
 <template>
-    <h2>Bans</h2>
+    <h2>{{ __('Bans')  }}</h2>
 
     <div class="mb-4 bg-dark rounded-3 bg-opacity-25">
-        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">Filter Table</h6>
+        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">{{ __('Filter Table') }}</h6>
         <div class="px-3 py-2 d-flex justify-content-between align-content-center align-items-center">
             <b-form-radio-group v-model="form.checkSelected" :options="filterOptions" class="align-self-center"
                                 @change="this.checkboxChecked"
                                 value-field="item" text-field="name" disabled-field="notEnabled">
             </b-form-radio-group>
 
-            <b-button variant="primary" @click.prevent="resetFilters">Clear Filters</b-button>
+            <b-button variant="primary" @click.prevent="resetFilters">{{ __('Clear Filters') }}</b-button>
         </div>
     </div>
 
     <b-table-simple hover responsive>
         <b-thead head-variant="dark">
             <b-tr>
-                <b-th>Type</b-th>
-                <b-th>Name</b-th>
-                <b-th>Reason</b-th>
-                <b-th>Set At</b-th>
-                <b-th>Set By</b-th>
+                <b-th>{{ __('Type') }}</b-th>
+                <b-th>{{ __('Name') }}</b-th>
+                <b-th>{{ __('Reason') }} </b-th>
+                <b-th>{{ __('Set At') }}</b-th>
+                <b-th>{{ __('Set By') }}</b-th>
             </b-tr>
         </b-thead>
         <b-tbody>
@@ -40,11 +40,11 @@ import { ref, defineComponent } from 'vue'
 import { useForm } from "@inertiajs/inertia-vue3";
 
 const filterOptions = [
-    { item: 'only_glines', name: 'Only G-Lines' },
-    { item: 'only_zlines', name: 'Only Z-Lines' },
-    { item: 'only_klines', name: 'Only K-Lines' },
-    { item: 'only_gzlines', name: 'Only GZ-Lines' },
-    { item: 'only_shun', name: 'Only SHUN' },
+    { item: 'only_glines', name: __('Only G-Lines') },
+    { item: 'only_zlines', name: __('Only Z-Lines') },
+    { item: 'only_klines', name: __('Only K-Lines') },
+    { item: 'only_gzlines', name: __('Only GZ-Lines') },
+    { item: 'only_shun', name: __('Only SHUN') },
 ]
 
 export default defineComponent({
@@ -54,6 +54,7 @@ export default defineComponent({
 
     data() {
         return {
+            __: window.__,
             bans: this.base_bans,
             form: useForm({
                 checkSelected: [],

@@ -1,31 +1,31 @@
 <template>
     <authenticated>
         <div class="pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h1">Dashboard</h1>
+            <h1 class="h1">{{ __('Dashboard') }}</h1>
         </div>
 
-        <h2>Basic Stats</h2>
+        <h2>{{ __('Basic Stats') }}</h2>
 
         <div>
             <b-card-group deck>
                 <b-card bg-variant="primary" text-variant="white" header="Users">
                     <b-card-text>
                         <h5 class="card-title">{{ $page.props.data.users.length }}</h5>
-                        <p class="card-text">Users on IRC.</p>
+                        <p class="card-text">{{ __('Users') }} {{ __('on IRC') }}</p>
                     </b-card-text>
                 </b-card>
 
                 <b-card bg-variant="success" text-variant="white" header="Channels">
                     <b-card-text>
                         <h5 class="card-title">{{ $page.props.data.channels.length }}</h5>
-                        <p class="card-text">Channels on IRC.</p>
+                        <p class="card-text">{{ __('Channels') }} {{ __('on IRC') }}</p>
                     </b-card-text>
                 </b-card>
 
                 <b-card bg-variant="secondary" text-variant="white" header="Bans">
                     <b-card-text>
                         <h5 class="card-title">{{ $page.props.data.bans.length }}</h5>
-                        <p class="card-text">TKLs on IRC.</p>
+                        <p class="card-text">{{__('Bans')}} {{ __('on IRC') }}</p>
                     </b-card-text>
                 </b-card>
             </b-card-group>
@@ -35,17 +35,17 @@
 
         <b-card no-body>
             <b-tabs card>
-                <b-tab title="Users" active lazy>
+                <b-tab :title="__('Users')" active lazy>
                     <b-card-text>
                         <Users :base_users="base_users" />
                     </b-card-text>
                 </b-tab>
-                <b-tab title="Channels" lazy>
+                <b-tab :title="__('Channels')" lazy>
                     <b-card-text>
                         <Channels :base_channels="base_channels" />
                     </b-card-text>
                 </b-tab>
-                <b-tab title="Bans" lazy>
+                <b-tab :title="__('Bans')" lazy>
                     <b-card-text>
                         <Bans :base_bans="base_bans" />
                     </b-card-text>
@@ -77,6 +77,7 @@ export default defineComponent({
 
     data() {
         return {
+            __: window.__,
             base_users: this.$page.props.data.users,
             base_channels: this.$page.props.data.channels,
 

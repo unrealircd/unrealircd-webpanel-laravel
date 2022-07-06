@@ -2,25 +2,38 @@
     <h2>Users</h2>
 
     <div class="mb-4 bg-dark rounded-3 bg-opacity-25">
-        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">Filter Table</h6>
+        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">{{ __('Filter Table') }}</h6>
         <div class="px-3 py-2 d-flex justify-content-between align-content-center align-items-center">
             <b-form-radio-group v-model="form.checkSelected" :options="filterOptions" class="align-self-center"
                                 @change="this.checkboxChecked"
                                 value-field="item" text-field="name" disabled-field="notEnabled">
             </b-form-radio-group>
 
-            <b-button variant="primary" @click.prevent="resetFilters">Clear Filters</b-button>
+            <b-button variant="primary" @click.prevent="resetFilters">{{ __('Clear Filters') }}</b-button>
         </div>
     </div>
 
     <b-table-simple hover responsive>
         <b-thead head-variant="dark">
-            <b-tr>
-                <b-th>Username</b-th>
-                <b-th>Server</b-th>
-                <b-th>Channels</b-th>
-                <b-th>Modes</b-th>
-                <b-th>VHost</b-th>
+            <b-tr class="">
+                <b-th>{{ __('Username') }}</b-th>
+                <b-th>{{ __('Server') }}</b-th>
+                <b-th>{{ __('Channels') }}</b-th>
+                <b-th>{{ __('Modes') }}</b-th>
+                <b-th class="d-flex align-items-end justify-content-between">
+                    <div class="">{{ __('VHost') }}</div>
+
+                    <b-button variant="light" class="ml-4" size="sm" @click.prevent="toggleHost">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd"
+                                  d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+
+                        <span>{{ __('Toggle VHost') }}</span>
+                    </b-button>
+                </b-th>
             </b-tr>
         </b-thead>
         <b-tbody>
@@ -29,7 +42,15 @@
                 <b-td>{{ user.user.servername }}</b-td>
                 <b-td>{{ user.user.channels }}</b-td>
                 <b-td>{{ user.user.modes.split('') }}</b-td>
-                <b-td>{{ user.ip ?? user.hostname }}</b-td>
+                <b-td>
+                    <div v-if="!show_realhost" class="w-100 d-flex justify-content-between">
+                        <span v-if="user.user.hasOwnProperty('vhost')" v-text="user.user.vhost" />
+                        <span v-else class="fst-italic opacity-75 small">- {{ __('No vhost for user') }} -</span>
+                    </div>
+                    <div v-if="show_realhost" class="w-100 d-flex justify-content-between">
+                        <span>{{ user.ip ?? user.hostname }}</span>
+                    </div>
+                </b-td>
             </b-tr>
         </b-tbody>
     </b-table-simple>
@@ -40,9 +61,9 @@ import { ref, defineComponent } from 'vue'
 import { useForm } from "@inertiajs/inertia-vue3";
 
 const filterOptions = [
-    { item: 'hide_services', name: 'Hide Services Bots (+S)' },
-    { item: 'hide_bots', name: 'Hide Bots (+B)' },
-    { item: 'only_tls', name: 'Show only TLS Users (+z)' },
+    { item: 'hide_services', name: __('Hide Services Bots') },
+    { item: 'hide_bots', name: ('Hide Bots') },
+    { item: 'only_tls', name: ('Show only TLS Users') },
 ]
 
 export default defineComponent({
@@ -52,6 +73,8 @@ export default defineComponent({
 
     data() {
         return {
+            __: window.__,
+            show_realhost: false,
             users: this.base_users,
             form: useForm({
                 checkSelected: [],
@@ -66,12 +89,16 @@ export default defineComponent({
     },
 
     created() {
-        if(this.$page.props.app.debug) {
+        if (this.$page.props.app.debug) {
             console.log(this.users);
         }
     },
 
     methods: {
+        toggleHost() {
+            this.show_realhost = !this.show_realhost;
+        },
+
         resetFilters() {
             this.form.checkSelected = [];
             this.users = this.base_users
@@ -115,5 +142,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+svg {
+    width: 16px;
+    height: 16px;
+    margin-right: .425rem;
+}
 </style>

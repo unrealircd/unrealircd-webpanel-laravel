@@ -1,6 +1,15 @@
 import _ from 'lodash';
 window._ = _;
 
+window.__ = (key, replace) => {
+    let translation = JSON.parse(window.Unreal).translations[key] ? JSON.parse(window.Unreal).translations[key] : key;
+
+    _.forEach(replace, (value, key) => {
+        translation = translation.replace(':'+key, value);
+    });
+
+    return translation;
+};
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

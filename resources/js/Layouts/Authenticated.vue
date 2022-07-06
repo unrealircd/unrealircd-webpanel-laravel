@@ -8,9 +8,9 @@
         </button>
 
         <div class="w-100 px-3 d-flex align-items-center justify-content-between">
-            <div class="text-white">Hi, {{ $page.props.user?.name ?? 'IRC User' }}</div>
+            <div class="text-white">{{ __('Hi') }}, {{ $page.props.user?.name ?? __('IRC User') }}</div>
             <div class="">
-                <a class="link text-white text-decoration-none" href="#">Sign out</a>
+                <a class="link text-white text-decoration-none" href="#">{{ __('Sign out') }}</a>
             </div>
         </div>
     </nav>
@@ -22,25 +22,25 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" :href="route('dashboard')">
                             <span data-feather="home" class="align-text-bottom"></span>
-                            Dashboard
+                            {{ __('Dashboard') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="file" class="align-text-bottom"></span>
-                            Users
+                            {{ __('Users') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                            Channels
+                            {{ __('Channels') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="users" class="align-text-bottom"></span>
-                            Bans
+                            {{ __('Bans') }}
                         </a>
                     </li>
                 </ul>
@@ -49,7 +49,7 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10">
             <b-alert variant="danger" class="rounded-0 border-0 bg-danger text-white mb-0" show>
-                Debug Mode is currently enabled.
+                {{ __('Debug Mode is currently enabled.') }}
             </b-alert>
             <div class="container-fluid px-md-4">
                 <slot/>
@@ -57,6 +57,18 @@
         </main>
     </div>
 </template>
+
+<script>
+import { defineComponent } from "vue";
+
+export default defineComponent({
+    data() {
+        return {
+            __: window.__,
+        }
+    }
+})
+</script>
 
 <style scoped lang="scss">
 .sidebar {

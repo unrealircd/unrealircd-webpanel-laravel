@@ -1,21 +1,21 @@
 <template>
     <div class="wrapper">
         <x-head>
-            <title>Log in to {{ $page.props.app.name }}</title>
+            <title>{{ __('Log in to') }} {{ $page.props.app.name }}</title>
         </x-head>
 
         <div class="text-center inner-wrapper">
             <div class="form-signin w-100 m-auto">
                 <form @submit.prevent="login">
-                    <h1 class="h3 mb-3 fw-normal">Please Sign In</h1>
+                    <h1 class="h3 mb-3 fw-normal">{{ __('Please Sign In') }}</h1>
                     <h2 class="h5 text-black-50 mb-4">{{ $page.props.app.name }}</h2>
 
                     <div class="alert alert-info text-start" role="alert">
-                        Please use your oper credentials to log in.
+                        {{ __('Please use your oper credentials to log in.') }}
                     </div>
 
                     <div v-if="Object.keys(form.errors).length > 0" class="alert alert-danger text-start">
-                        <p>Whoops, something went wrong.</p>
+                        <p>{{ __('Whoops, something went wrong.') }}</p>
                         <ul>
                             <li v-for="key in Object.keys(form.errors)">
                                 {{ form.errors[key] }}
@@ -27,16 +27,17 @@
                         <input type="text" class="form-control" id="floatingInput" placeholder="Username"
                                :class="form.errors.username ? 'is-invalid' : ''"
                                v-model="form.username">
-                        <label for="floatingInput">Username</label>
+                        <label for="floatingInput">{{ __('Username') }}</label>
                     </div>
                     <div class="form-floating">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
                                :class="form.errors.username ? 'is-invalid' : ''"
                                v-model="form.password">
-                        <label for="floatingPassword">Password</label>
+                        <label for="floatingPassword">{{ __('Password') }}</label>
                     </div>
 
-                    <button class="w-100 btn btn-lg btn-primary" :disabled="form.processing" type="submit">Sign in
+                    <button class="w-100 btn btn-lg btn-primary" :disabled="form.processing" type="submit">
+                        {{ __('Sign in') }}
                     </button>
 
                     <p class="mt-5 mb-3 text-muted">Copyright &copy; 1999 – {{ new Date().getFullYear() }}
