@@ -62,7 +62,9 @@ export default defineComponent({
     },
 
     created() {
-        console.log(this.$page.props.data.channels);
+        if(this.$page.props.app.debug) {
+            console.log(this.$page.props.data.channels);
+        }
     },
 
     setup() {

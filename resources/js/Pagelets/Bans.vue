@@ -54,7 +54,7 @@ export default defineComponent({
 
     data() {
         return {
-            bans: {},
+            bans: this.base_bans,
             form: useForm({
                 checkSelected: [],
             }),
@@ -68,7 +68,9 @@ export default defineComponent({
     },
 
     created() {
-        this.bans = this.base_bans;
+        if(this.$page.props.app.debug) {
+            console.log(this.bans);
+        }
     },
 
     methods: {

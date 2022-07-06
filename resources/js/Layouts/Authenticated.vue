@@ -1,9 +1,5 @@
-<script setup>
-import { ref } from 'vue';
-</script>
-
 <template>
-    <nav class="navbar navbar-dark sticky-top navbar-expand-lg bg-dark p-0 shadow">
+    <nav class="navbar navbar-dark sticky-top navbar-expand-lg bg-dark py-1 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">{{ $page.props.app.name }}</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
@@ -11,56 +7,58 @@ import { ref } from 'vue';
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-nav">
-            <div class="navbar-text px-3">Hi, {{ $page.props.user?.name ?? 'IRC User' }}</div>
-            <div class="nav-item border-1 border-end border-white opacity-25"></div>
-            <div class="nav-item">
-                <a class="nav-link" href="#">Sign out</a>
+        <div class="w-100 px-3 d-flex align-items-center justify-content-between">
+            <div class="text-white">Hi, {{ $page.props.user?.name ?? 'IRC User' }}</div>
+            <div class="">
+                <a class="link text-white text-decoration-none" href="#">Sign out</a>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" :href="route('dashboard')">
-                                <span data-feather="home" class="align-text-bottom"></span>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file" class="align-text-bottom"></span>
-                                Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                                Channels
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="users" class="align-text-bottom"></span>
-                                Bans
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    <div class="">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" :href="route('dashboard')">
+                            <span data-feather="home" class="align-text-bottom"></span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file" class="align-text-bottom"></span>
+                            Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                            Channels
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="users" class="align-text-bottom"></span>
+                            Bans
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <slot />
-            </main>
-        </div>
+        <main class="col-md-9 ms-sm-auto col-lg-10">
+            <b-alert variant="danger" class="rounded-0 border-0 bg-danger text-white mb-0" show>
+                Debug Mode is currently enabled.
+            </b-alert>
+            <div class="container-fluid px-md-4">
+                <slot/>
+            </div>
+        </main>
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .sidebar {
     position: fixed;
     top: 0;
@@ -142,5 +140,9 @@ import { ref } from 'vue';
 .form-control-dark:focus {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+.link:hover {
+    color: #d8ddd8 !important;
 }
 </style>

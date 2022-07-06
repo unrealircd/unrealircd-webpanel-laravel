@@ -45,7 +45,8 @@ class HandleInertiaRequests extends Middleware
             },
             'app' => [
                 'name' => config('app.name'),
-                'url' => config('app.url')
+                'url' => config('app.url'),
+                'debug' => config('app.debug')
             ]
         ]);
     }

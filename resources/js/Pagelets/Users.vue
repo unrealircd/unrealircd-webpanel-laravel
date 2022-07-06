@@ -29,7 +29,7 @@
                 <b-td>{{ user.user.servername }}</b-td>
                 <b-td>{{ user.user.channels }}</b-td>
                 <b-td>{{ user.user.modes.split('') }}</b-td>
-                <b-td>{{ user.user.hasOwnProperty('vhost') ? user.user.vhost : user.user.cloakedhost }}</b-td>
+                <b-td>{{ user.ip ?? user.hostname }}</b-td>
             </b-tr>
         </b-tbody>
     </b-table-simple>
@@ -52,7 +52,7 @@ export default defineComponent({
 
     data() {
         return {
-            users: {},
+            users: this.base_users,
             form: useForm({
                 checkSelected: [],
             }),
@@ -66,7 +66,9 @@ export default defineComponent({
     },
 
     created() {
-        this.users = this.base_users;
+        if(this.$page.props.app.debug) {
+            console.log(this.users);
+        }
     },
 
     methods: {
