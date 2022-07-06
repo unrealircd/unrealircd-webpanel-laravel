@@ -27,7 +27,7 @@ return [
         | Supported drivers: "http", "wockets"
         */
 
-        'method' => env('UNREAL_RPC_METHOD', 'http'),
+        'method' => env('UNREAL_RPC_METHOD', 'websockets'),
 
         /*
         | The username and password defined in "rpc.modules.default.conf".

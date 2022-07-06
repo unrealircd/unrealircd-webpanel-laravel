@@ -1,14 +1,14 @@
 <template>
     <div class="wrapper">
         <x-head>
-            <title>Log in to {{ server_name }}</title>
+            <title>Log in to {{ $page.props.app.name }}</title>
         </x-head>
 
         <div class="text-center inner-wrapper">
             <div class="form-signin w-100 m-auto">
                 <form @submit.prevent="login">
                     <h1 class="h3 mb-3 fw-normal">Please Sign In</h1>
-                    <h2 class="h5 text-black-50 mb-4">{{ server_name }}</h2>
+                    <h2 class="h5 text-black-50 mb-4">{{ $page.props.app.name }}</h2>
 
                     <div class="alert alert-info text-start" role="alert">
                         Please use your oper credentials to log in.
@@ -56,7 +56,6 @@ export default defineComponent({
 
     data() {
         return {
-            server_name: import.meta.env.VITE_APP_NAME,
             form: useForm({
                 username: null,
                 password: null,

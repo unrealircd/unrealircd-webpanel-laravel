@@ -8,20 +8,21 @@ import fs from 'fs';
 export default defineConfig({
     server: detectServerConfig(),
     plugins: [
-        laravel([
-            'resources/js/app.js',
-            'resources/css/app.scss',
-        ]),
+        laravel({
+            input: 'resources/js/app.js',
+            refresh: true
+        }),
         vue({
             template: {
                 transformAssetUrls: {
-                    base: 'https://unreal.test',
-                    includeAbsolute: true,
+                    base: 'https://unreal.test/',
+                    includeAbsolute: false,
                 },
             },
         }),
     ],
-});
+})
+;
 
 function detectServerConfig() {
     let host = 'unreal.test';
@@ -29,7 +30,7 @@ function detectServerConfig() {
     let keyPath = resolve(homedir(), `.config/valet/Certificates/${host}.key`)
     let certificatePath = resolve(homedir(), `.config/valet/Certificates/${host}.crt`)
 
-    if(!fs.existsSync(keyPath) || !fs.existsSync(certificatePath)) {
+    if (!fs.existsSync(keyPath) || !fs.existsSync(certificatePath)) {
         return {};
     }
 

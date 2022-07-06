@@ -23,7 +23,8 @@ class TestController extends Controller
     public function __invoke()
     {
         if (config('app.debug')) {
-            $url = sprintf('wss://%s:%s@%s:%s/api',
+            $url = sprintf('%s://%s:%s@%s:%s/api',
+                in_array(config('unrealircd.rpc.method'), ['websockets', 'wss', 'wockets', 'websocks']) ? 'wss' : 'https',
                 config('unrealircd.rpc.user.username'),
                 config('unrealircd.rpc.user.password'),
                 config('unrealircd.server.host'),
