@@ -43,8 +43,8 @@ class TestController extends Controller
             return dd($users->get(),
                 $users->show(['nick' => $users->get()->list[0]->name]),
                 $channels->get(),
-                // $channels->show(['name' => $channels->get()->list[0]->name,
-                $bans->get()
+                $channels->show(['channel' => $channels->get()->list[0]->name]),
+                $bans->get(),
             );
         }
 

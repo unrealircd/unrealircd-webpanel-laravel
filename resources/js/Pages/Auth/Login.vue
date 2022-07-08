@@ -57,6 +57,7 @@ export default defineComponent({
 
     data() {
         return {
+            __: window.__,
             form: useForm({
                 username: null,
                 password: null,
