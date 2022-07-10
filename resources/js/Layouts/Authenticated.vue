@@ -1,6 +1,6 @@
 <template>
-    <nav class="navbar navbar-dark sticky-top navbar-expand-lg bg-dark py-1 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">{{ $page.props.app.name }}</a>
+    <nav class="navbar py-2 navbar-dark sticky-top navbar-expand-lg bg-dark py-1 shadow">
+        <a class="navbar-brand bg-dark col-md-3 col-lg-2 me-0 px-5 fs-6" href="#">{{ $page.props.app.name }}</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -16,36 +16,20 @@
     </nav>
 
     <div class="">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" :href="route('dashboard')">
-                            <span data-feather="home" class="align-text-bottom"></span>
-                            {{ __('Dashboard') }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file" class="align-text-bottom"></span>
-                            {{ __('Users') }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                            {{ __('Channels') }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users" class="align-text-bottom"></span>
-                            {{ __('Bans') }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <b-nav tag="div" vertical class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <x-link router-tag="x-link" class="nav-item" exact-active-class="active" exact :href="route('dashboard')" :active="route().current('dashboard')">
+                {{ __('Dashboard') }}
+            </x-link>
+            <x-link router-tag="x-link" class="nav-item" exact-active-class="active" exact :href="route('users')" :active="route().current('users')">
+                {{ __('Users') }}
+            </x-link>
+            <x-link router-tag="x-link" class="nav-item" exact-active-class="active" exact :href="route('channels')" :active="route().current('channels')">
+                {{ __('Channels') }}
+            </x-link>
+            <x-link router-tag="x-link" class="nav-item" exact-active-class="active" exact :href="route('bans')" :active="route().current('bans')">
+                {{ __('Bans') }}
+            </x-link>
+        </b-nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10">
             <b-alert variant="danger" class="rounded-0 border-0 bg-danger text-white mb-0" show>
@@ -55,6 +39,8 @@
                 <slot/>
             </div>
         </main>
+
+        <b-container :toast="{root:true}" class="topper" fluid="sm" position="position-sticky" />
     </div>
 </template>
 
@@ -73,16 +59,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .sidebar {
     position: fixed;
-    top: 0;
-    /* rtl:raw:
-    right: 0;
-    */
+    top: 1px;
     bottom: 0;
-    /* rtl:remove */
     left: 0;
-    z-index: 100; /* Behind the navbar */
+    z-index: 1; /* Behind the navbar */
     padding: 48px 0 0; /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
 @media (max-width: 767.98px) {
@@ -91,32 +72,23 @@ export default defineComponent({
     }
 }
 
-.sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-.sidebar .nav-link {
+.nav-item {
+    margin: .4rem;
     font-weight: 500;
-    color: #333;
+    color: #333 !important;
+    display: block;
+    padding: .725rem .925rem;
+    text-decoration: none;
+    border-radius: .325rem;
+
+    &:hover {
+        background: #3399ff77;
+    }
 }
 
-.sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #727272;
-}
-
-.sidebar .nav-link.active {
-    color: #2470dc;
-}
-
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-    color: inherit;
+.nav-item.active {
+    color: #fff !important;
+    background: #3399ff;
 }
 
 .sidebar-heading {
@@ -128,10 +100,9 @@ export default defineComponent({
  */
 
 .navbar-brand {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background-color: rgba(0, 0, 0, .25);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+    background-color: #212529;
+    z-index: 100;
+    height: 32px;
 }
 
 .navbar .navbar-toggler {

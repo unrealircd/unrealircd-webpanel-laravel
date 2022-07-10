@@ -8,14 +8,14 @@
 
         <div>
             <b-card-group deck>
-                <b-card bg-variant="primary" text-variant="white" header="Users">
+                <b-card bg-variant="primary" text-variant="white" header="Users" class="mb-2 mb-sm-0">
                     <b-card-text>
                         <h5 class="card-title">{{ $page.props.data.users.length }}</h5>
                         <p class="card-text">{{ __('Users') }} {{ __('on IRC') }}</p>
                     </b-card-text>
                 </b-card>
 
-                <b-card bg-variant="success" text-variant="white" header="Channels">
+                <b-card bg-variant="success" text-variant="white" header="Channels" class="mb-2 mb-sm-0">
                     <b-card-text>
                         <h5 class="card-title">{{ $page.props.data.channels.length }}</h5>
                         <p class="card-text">{{ __('Channels') }} {{ __('on IRC') }}</p>

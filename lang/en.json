@@ -9,6 +9,7 @@
     "Bans": "Bans",
     "on IRC": "on IRC",
     "Debug Mode is currently enabled.": "Debug Mode is currently enabled.",
+    "Something went wrong": "Something went wrong",
 
     "Log in to": "Log in to",
     "Please Sign In": "Please Sign In",
@@ -36,9 +37,11 @@
     "Reason": "Reason",
     "Set At": "Set At",
     "Set By": "Set By",
+    "Expires At": "Expires At",
     "Only G-Lines": "Only G-Lines",
     "Only Z-Lines": "Only Z-Lines",
     "Only K-Lines": "Only K-Lines",
     "Only GZ-Lines": "Only GZ-Lines",
-    "Only SHUN": "Only SHUN"
+    "Only SHUN": "Only SHUN",
+    "Unable to remove :ban": "Unable to remove :ban"
 }

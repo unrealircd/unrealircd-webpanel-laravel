@@ -18,18 +18,24 @@
             <b-tr>
                 <b-th>{{ __('Type') }}</b-th>
                 <b-th>{{ __('Name') }}</b-th>
+                <b-th>{{ __('Length' )}}</b-th>
                 <b-th>{{ __('Reason') }} </b-th>
                 <b-th>{{ __('Set At') }}</b-th>
                 <b-th>{{ __('Set By') }}</b-th>
+                <b-th></b-th>
             </b-tr>
         </b-thead>
         <b-tbody>
             <b-tr v-for="ban in bans" :key="ban.type_string">
                 <b-td>{{ ban.type_string }}</b-td>
                 <b-td>{{ ban.name }}</b-td>
+                <b-td>{{ ban.length }}</b-td>
                 <b-td>{{ ban.reason }}</b-td>
                 <b-td>{{ ban.set_at_string }}</b-td>
                 <b-td>{{ ban.set_by }}</b-td>
+                <b-td>
+                    <b-button variant="danger">Delete</b-button>
+                </b-td>
             </b-tr>
         </b-tbody>
     </b-table-simple>
@@ -87,7 +93,7 @@ export default defineComponent({
             console.log(this.form.checkSelected)
 
             if (this.form.checkSelected[0] === 'only_glines') {
-                for (let i = 0; i < bans.length; i++) {
+                for (let i = 0; i < (bans.length > 10 ? 10 : bans.length); i++) {
                     if (bans[i].type === 'gline') {
                         new_bans_list.push(bans[i]);
                     }

@@ -54,6 +54,7 @@ export default defineComponent({
 
     data() {
         return {
+            __: window.__,
             channels: this.base_channels,
             form: useForm({
                 checkSelected: [],

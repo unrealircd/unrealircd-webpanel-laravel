@@ -1,5 +1,5 @@
 import _ from 'lodash';
-window._ = _;
+import axios from 'axios';
 
 window.__ = (key, replace) => {
     let translation = JSON.parse(window.Unreal).translations[key] ? JSON.parse(window.Unreal).translations[key] : key;
@@ -10,6 +10,9 @@ window.__ = (key, replace) => {
 
     return translation;
 };
+
+window.axios = axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

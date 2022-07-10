@@ -9,6 +9,7 @@
             window.Unreal = '<?php echo json_encode(\App\UnrealIRCd::variables()); ?>';
         </script>
         @routes
+        @vite('resources/css/app.scss')
         @vite('resources/js/app.js')
         @inertiaHead
     </head>
