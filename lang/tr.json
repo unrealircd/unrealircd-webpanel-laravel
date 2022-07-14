@@ -9,6 +9,7 @@
     "Bans": "Yasaklar",
     "on IRC": "IRC'de",
     "Debug Mode is currently enabled.": "Hata Ayıklama Modu şu anda etkin.",
+    "Something went wrong": "Bir şeyler yanlış gitti",
 
     "Log in to": "Giriş",
     "Please Sign In": "Lütfen giriş yapın",
@@ -36,9 +37,11 @@
     "Reason": "Sebep",
     "Set At": "Kurucu",
     "Set By": "Ayarlayan",
+    "Expires At": "Sona Erme Tarihi",
     "Only G-Lines": "Yalnız G-Lines",
     "Only Z-Lines": "Yalnız Z-Lines",
     "Only K-Lines": "Yalnız K-Lines",
     "Only GZ-Lines": "Yalnız GZ-Lines",
-    "Only SHUN": "Yalnız SHUN"
+    "Only SHUN": "Yalnız SHUN",
+    "Unable to remove :ban": ":ban Kaldırılamıyor"
 }
