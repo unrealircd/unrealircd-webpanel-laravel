@@ -7,21 +7,21 @@
         <b-td>{{ ban.set_at_string }}</b-td>
         <b-td>{{ ban.set_by }}</b-td>
         <b-td class="d-flex gap-2">
-            <b-button size="sm" v-b-modal="`edit-modal-ban-${id}`" variant="primary">Edit</b-button>
-            <b-button size="sm" v-b-modal="`delete-modal-ban-${id}`" variant="danger">Delete</b-button>
+            <b-button size="sm" v-b-modal="`edit-modal-ban-${id}`" variant="primary">{{ __('Edit') }}</b-button>
+            <b-button size="sm" v-b-modal="`delete-modal-ban-${id}`" variant="danger">{{ __('Delete') }}</b-button>
 
             <b-modal header-bg-variant="danger" header-text-variant="light" centered
                      ok-title="Delete" ok-variant="danger" @ok.once="deleteBan()"
                      :id="`delete-modal-ban-${id}`" title="Are you sure?">
-                <p>Are you sure you want to remove this {{ ban.type_string }}?</p>
+                <p>{{ __('Are you sure you want to remove this :ban', ban.type_string)}}?</p>
             </b-modal>
 
             <b-modal centered
                      ok-title="Update" ok-variant="primary" @ok.once="editBan()"
-                     :id="`edit-modal-ban-${id}`" :title="`Update Ban ${ban.name}`">
+                     :id="`edit-modal-ban-${id}`" :title="__('Update Ban')">
                 <b-form>
                     <b-form-group :label="__('Name')" label-for="name"
-                                  description="To change the host/ip mask, please create a new entry.">
+                                  :escription="__('To change the host/ip mask, please create a new entry.')">
                         <b-form-input id="name" type="text" v-model="_ban.name" disabled/>
                     </b-form-group>
 
@@ -86,11 +86,10 @@ export default defineComponent({
                 .then(res => {
                     if (res.data.type === "success") {
                         this.toast.show({
-                            title: 'Awesome!',
+                            title: window.__('Success!'),
                             body: res.data.message
                         }, {
                             variant: 'success',
-                            solid: true,
                         });
 
                         window.location.reload();
@@ -98,11 +97,10 @@ export default defineComponent({
                 })
                 .catch(e => {
                     this.toast.show({
-                        title: __('Something went wrong'),
+                        title: window.__('Something went wrong'),
                         body: e.response.data.message
                     }, {
                         variant: 'danger',
-                        solid: true,
                     })
                 });
         },
@@ -112,11 +110,10 @@ export default defineComponent({
                 .then(res => {
                     if (res.data.type === "success") {
                         this.toast.show({
-                            title: 'Awesome!',
+                            title: window.__('Success!'),
                             body: res.data.message
                         }, {
                             variant: 'success',
-                            solid: true,
                         });
 
                         window.location.reload();
@@ -124,11 +121,10 @@ export default defineComponent({
                 })
                 .catch(e => {
                     this.toast.show({
-                        title: __('Something went wrong'),
+                        title: window.__('Something went wrong'),
                         body: e.response.data.message
                     }, {
                         variant: 'danger',
-                        solid: true,
                     })
                 });
         }

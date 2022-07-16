@@ -49,5 +49,10 @@
     "Only K-Lines": "Only K-Lines",
     "Only GZ-Lines": "Only GZ-Lines",
     "Only SHUN": "Only SHUN",
-    "Unable to remove :ban": "Unable to remove :ban"
+    "Unable to remove :ban": "Unable to remove :ban",
+    "Are you sure you want to remove this :ban": "Are you sure you want to remove this :ban",
+    "New Ban": "New Ban",
+    "Create Ban": "Create Ban",
+    "Update Ban": "Update Ban",
+    "To change the host/ip mask, please create a new entry.": "To change the host/ip mask, please create a new entry."
 }

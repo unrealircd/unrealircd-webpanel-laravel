@@ -9,3 +9,11 @@ html, body, #app {
 .topper {
     z-index: 10000000;
 }
+
+button#lang-dropdown.btn.btn-secondary {
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    color: #0d6efd;
+}

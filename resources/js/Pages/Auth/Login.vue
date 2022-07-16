@@ -44,10 +44,10 @@
                 <div class="mt-5 mb-3 text-muted d-flex align-items-center gap-2">
                     <span>Copyright &copy; 1999 – {{ new Date().getFullYear() }} UnrealIRCd</span>
                     <span>&middot;</span>
-                    <div class="d-flex gap-2 align-items-center">
-                        Language:
-                        <b-dropdown ref="lang" id="lang-dropdown" toggle-tag="span" :text="langs.name" class="m-md-2">
-                            <b-dropdown-item v-for="lang in languages" :href="route('lang', { 'lang': lang.value })">
+                    <div class="d-flex gap-1 align-items-center">
+                        <span>Language</span>
+                        <b-dropdown ref="lang" id="lang-dropdown" :text="langs.name" class="my-md-2">
+                            <b-dropdown-item v-for="lang in languages" :key="lang.value" :href="route('lang', { 'lang': lang.value })">
                                 {{ lang.name }}
                             </b-dropdown-item>
                         </b-dropdown>
@@ -70,9 +70,8 @@ const languages = [
     { value: 'tr', name: window.__('Turkish') },
 ]
 
-
 export default defineComponent({
-    name: "Auth",
+    name: "Login",
     components: { BDropdown },
 
     setup() {
@@ -94,7 +93,6 @@ export default defineComponent({
                     body: this.$page.props.flash.data.message
                 }, {
                     variant: this.$page.props.flash.data.type,
-                    solid: true,
                 });
             }
         }, 500);
