@@ -35,6 +35,9 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
+            'flash' => [
+                'data' => $request->session()->get('message') ?? false,
+            ],
             'auth' => [
                 'user' => $request->user(),
             ],
@@ -46,7 +49,8 @@ class HandleInertiaRequests extends Middleware
             'app' => [
                 'name' => config('app.name'),
                 'url' => config('app.url'),
-                'debug' => config('app.debug')
+                'debug' => config('app.debug'),
+                'lang' => session('_lang') ?? app()->getLocale(),
             ]
         ]);
     }

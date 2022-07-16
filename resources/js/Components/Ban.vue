@@ -20,14 +20,16 @@
                      ok-title="Update" ok-variant="primary" @ok.once="editBan()"
                      :id="`edit-modal-ban-${id}`" :title="`Update Ban ${ban.name}`">
                 <b-form>
-                    <b-form-group :label="__('Name')" label-for="name" description="To change the host/ip mask, please create a new entry.">
-                        <b-form-input id="name" type="text" v-model="_ban.name" disabled />
+                    <b-form-group :label="__('Name')" label-for="name"
+                                  description="To change the host/ip mask, please create a new entry.">
+                        <b-form-input id="name" type="text" v-model="_ban.name" disabled/>
                     </b-form-group>
 
                     <b-form-group :label="__('Expires At')" label-for="date" description="Please pick a date and time">
                         <div class="d-flex gap-2">
-                            <input class="form-control" type="date" id="date" v-model="_ban.date" />
-                            <input class="form-control" type="time" step="1" id="time" min="00:00:00" max="23:59:59" v-model="_ban.time" />
+                            <input class="form-control" type="date" id="date" v-model="_ban.date"/>
+                            <input class="form-control" type="time" step="1" id="time" min="00:00:00" max="23:59:59"
+                                   v-model="_ban.time"/>
                         </div>
                     </b-form-group>
 
@@ -85,7 +87,8 @@ export default defineComponent({
                     if (res.data.type === "success") {
                         this.toast.show({
                             title: 'Awesome!',
-                            body: res.data.message,
+                            body: res.data.message
+                        }, {
                             variant: 'success',
                             solid: true,
                         });
@@ -96,7 +99,8 @@ export default defineComponent({
                 .catch(e => {
                     this.toast.show({
                         title: __('Something went wrong'),
-                        body: e.response.data.message,
+                        body: e.response.data.message
+                    }, {
                         variant: 'danger',
                         solid: true,
                     })
@@ -109,7 +113,8 @@ export default defineComponent({
                     if (res.data.type === "success") {
                         this.toast.show({
                             title: 'Awesome!',
-                            body: res.data.message,
+                            body: res.data.message
+                        }, {
                             variant: 'success',
                             solid: true,
                         });
@@ -120,7 +125,8 @@ export default defineComponent({
                 .catch(e => {
                     this.toast.show({
                         title: __('Something went wrong'),
-                        body: e.response.data.message,
+                        body: e.response.data.message
+                    }, {
                         variant: 'danger',
                         solid: true,
                     })

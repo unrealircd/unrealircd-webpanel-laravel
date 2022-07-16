@@ -16,7 +16,7 @@ class UnrealIRCd
 
     private static function translations()
     {
-        $file = lang_path(sprintf('%s.json', app()->getLocale()));
+        $file = lang_path(sprintf('%s.json', session('_lang') ?? app()->getLocale()));
 
         return json_decode(file_get_contents($file), true);
     }

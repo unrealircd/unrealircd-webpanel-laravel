@@ -5,8 +5,8 @@
         </x-head>
 
         <div class="text-center inner-wrapper">
-            <div class="form-signin w-100 m-auto">
-                <form @submit.prevent="login">
+            <div class="form-signin m-auto">
+                <form @submit.prevent="login" class="form-signin-form w-100">
                     <h1 class="h3 mb-3 fw-normal">{{ __('Please Sign In') }}</h1>
                     <h2 class="h5 text-black-50 mb-4">{{ $page.props.app.name }}</h2>
 
@@ -39,24 +39,70 @@
                     <button class="w-100 btn btn-lg btn-primary" :disabled="form.processing" type="submit">
                         {{ __('Sign in') }}
                     </button>
-
-                    <p class="mt-5 mb-3 text-muted">Copyright &copy; 1999 – {{ new Date().getFullYear() }}
-                        UnrealIRCd</p>
                 </form>
+
+                <div class="mt-5 mb-3 text-muted d-flex align-items-center gap-2">
+                    <span>Copyright &copy; 1999 – {{ new Date().getFullYear() }} UnrealIRCd</span>
+                    <span>&middot;</span>
+                    <div class="d-flex gap-2 align-items-center">
+                        Language:
+                        <b-dropdown ref="lang" id="lang-dropdown" toggle-tag="span" :text="langs.name" class="m-md-2">
+                            <b-dropdown-item v-for="lang in languages" :href="route('lang', { 'lang': lang.value })">
+                                {{ lang.name }}
+                            </b-dropdown-item>
+                        </b-dropdown>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <b-container :toast="{root:true}" class="topper" fluid="sm" position="position-sticky"/>
     </div>
 </template>
 
 <script>
 import { ref, defineComponent } from 'vue'
 import { useForm } from '@inertiajs/inertia-vue3';
+import { BDropdown, useToast } from "bootstrap-vue-3";
+
+const languages = [
+    { value: 'en', name: window.__('English') },
+    { value: 'tr', name: window.__('Turkish') },
+]
+
 
 export default defineComponent({
     name: "Auth",
+    components: { BDropdown },
+
+    setup() {
+        let toast = useToast();
+
+        return {
+            toast,
+            languages,
+        }
+    },
+
+    created() {
+        this.getLanguage();
+
+        setTimeout(() => {
+            if (this.$page.props.flash.data) {
+                this.toast.show({
+                    title: this.$page.props.flash.data.title,
+                    body: this.$page.props.flash.data.message
+                }, {
+                    variant: this.$page.props.flash.data.type,
+                    solid: true,
+                });
+            }
+        }, 500);
+    },
 
     data() {
         return {
+            langs: {},
             __: window.__,
             form: useForm({
                 username: null,
@@ -66,6 +112,15 @@ export default defineComponent({
     },
 
     methods: {
+        getLanguage() {
+            for (let i = 0; i < languages.length; i++) {
+                if (languages[i].value === this.$page.props.app.lang) {
+                    this.langs = languages[i];
+                    return;
+                }
+            }
+        },
+
         login() {
             this.form.post(route('login'), {
                 onError: (err) => {
@@ -84,13 +139,14 @@ export default defineComponent({
 
 .inner-wrapper {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #f5f5f5;
 }
 
-.form-signin {
+.form-signin-form {
     max-width: 440px;
     padding: 15px;
 }

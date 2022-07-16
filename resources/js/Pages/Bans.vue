@@ -159,7 +159,8 @@ export default defineComponent({
                 onError: (e) => {
                     this.toast.show({
                         title: __('Something went wrong'),
-                        body: e.response.data.message,
+                        body: e.response.data.message
+                    }, {
                         variant: 'danger',
                         solid: true,
                     })

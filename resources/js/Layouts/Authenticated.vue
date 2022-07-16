@@ -48,6 +48,18 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+    created() {
+        if(this.$page.flash.message) {
+            this.toast.show({
+                title: this.$page.props.flash.data.title,
+                body: this.$page.props.flash.data.message
+            }, {
+                variant: this.$page.props.flash.data.type,
+                solid: true,
+            });
+        }
+    },
+
     data() {
         return {
             __: window.__,

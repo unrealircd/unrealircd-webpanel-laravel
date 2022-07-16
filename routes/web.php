@@ -7,12 +7,15 @@ use App\Http\Controllers\{
     DashboardController,
     IndexController,
     TestController,
-    UserController
+    UserController,
+    LanguageController
 };
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', IndexController::class)->name('index');
+
+Route::get('/lang/{lang}', LanguageController::class)->name('lang');
 
 Route::middleware(['auth'])->group(function () {
     // todo: move all routes here that require a login to be accessible.
