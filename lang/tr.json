@@ -10,6 +10,12 @@
     "on IRC": "IRC'de",
     "Debug Mode is currently enabled.": "Hata Ayıklama Modu şu anda etkin.",
     "Something went wrong": "Bir şeyler yanlış gitti",
+	"Success!": "Başarılı!",
+    "Your language has been updated.": "Diliniz Güncellendi.",
+    "That language is not supported.": "Bu dil Desteklenmiyor.",
+    "Error": "Hata",
+    "English": "English",
+    "Turkish": "Turkish",
 
     "Log in to": "Giriş",
     "Please Sign In": "Lütfen giriş yapın",
