@@ -49,5 +49,10 @@
     "Only K-Lines": "Yalnız K-Lines",
     "Only GZ-Lines": "Yalnız GZ-Lines",
     "Only SHUN": "Yalnız SHUN",
-    "Unable to remove :ban": ":ban Kaldırılamıyor"
+    "Unable to remove :ban": ":ban Kaldırılamıyor",
+	"Are you sure you want to remove this :ban": "Bunu kaldırmak istediğinizden emin misiniz :ban",
+    "New Ban": "Yeni Yasak",
+    "Create Ban": "Yasak Oluştur",
+    "Update Ban": "Yasağı Güncelle",
+    "To change the host/ip mask, please create a new entry.": "Ana bilgisayar/ip maskesini değiştirmek için lütfen yeni bir giriş oluşturun."
 }
