@@ -7,7 +7,30 @@ UnrealIRCd Web Panel is an open-source, free administration panel for UnrealIRCd
 
 ## Getting Started
 
-to do...
+Ensure you have PHP and NodeJS installed on your system or that the PHP and NodeJS binaries are in your system path.
+
+```sh
+git clone git@github.com:unrealircd/unrealircd-webpanel.git
+cd unrealircd-webpanel
+```
+
+Then install the project dependancies
+```sh
+composer install && npm install
+```
+
+If you are making any changes to the front-end code (located in `resources/js`), you'll need to also run
+```sh
+npm run dev
+```
+
+This will run the Vite dev server and changes will be reflected immediately in the browser.
+
+To access the project: 
+```sh
+php artisan serve
+```
+then point your browser at `http://localhost:8000`
 
 ## Documentation
 to do...
