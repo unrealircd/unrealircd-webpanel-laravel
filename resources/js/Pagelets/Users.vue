@@ -57,7 +57,7 @@
                 <b-td class="d-none d-md-table-cell">{{ user.user.servername }}</b-td>
                 <b-td>
                     <span class="d-none d-md-block">{{ user.user.channels }}</span>
-                    <span class="d-md-none">{{ user.user.channels.length }}</span>
+                    <span class="d-md-none">{{ user.user.channels?.length }}</span>
                 </b-td>
                 <b-td class="font-monospace">{{ user.user.modes }}</b-td>
                 <b-td class="d-none d-md-table-cell">

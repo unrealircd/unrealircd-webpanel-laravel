@@ -46,7 +46,7 @@ class BanController extends Controller
     public function index(): Response|JsonResponse
     {
         if (!cache()->has('irc_lines')) {
-            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => false]);
+            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
             cache()->add('irc_lines', json_encode([
                 'bans' => $bans->get()->list ?? []
@@ -63,7 +63,7 @@ class BanController extends Controller
     public function create(Request $request)
     {
         try {
-            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => false]);
+            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
             if ($bans->add($request->get('name'), [
                 'type' => $request->get('type_string'),
@@ -84,7 +84,7 @@ class BanController extends Controller
     public function store(Request $request)
     {
         try {
-            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => false]);
+            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
             if ($bans->delete($request->get('name'), ['type' => $request->get('type')])) {
                 $bans->add($request->get('name'), [
@@ -109,7 +109,7 @@ class BanController extends Controller
     public function destroy(Request $request)
     {
         try {
-            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => false]);
+            $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
             if ($bans->delete($request->get('name'), ['type' => $request->get('type')])) {
                 cache()->forget('irc_lines');

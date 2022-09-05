@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Crypt;
 use Inertia\Inertia;
 use Inertia\Response;
 use UnrealIRCd\Ban;
@@ -16,20 +17,20 @@ class DashboardController extends Controller
         if(!cache()->has('irc_stats')) {
             $url = sprintf('%s://%s:%s@%s:%s/api',
                 in_array(config('unrealircd.rpc.method'), ['websockets', 'wss', 'wockets', 'websocks']) ? 'wss' : 'https',
-                config('unrealircd.rpc.user.username'),
-                config('unrealircd.rpc.user.password'),
+                auth()->user()->username,
+                Crypt::decryptString(session('user_password')),
                 config('unrealircd.server.host'),
                 config('unrealircd.server.port')
             );
 
             $credentials = sprintf("%s:%s",
-                config('unrealircd.rpc.user.username'),
-                config('unrealircd.rpc.user.password')
+                auth()->user()->username,
+                Crypt::decryptString(session('user_password')),
             );
 
-            $users = new User($url, $credentials, ["tls_verify" => false]);
-            $channels = new Channel($url, $credentials, ["tls_verify" => false]);
-            $bans = new Ban($url, $credentials, ["tls_verify" => false]);
+            $users = new User($url, $credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
+            $channels = new Channel($url, $credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
+            $bans = new Ban($url, $credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
             cache()->add('irc_stats', json_encode([
                 'users' => $users->get()->list ?? [],

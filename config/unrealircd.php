@@ -28,16 +28,13 @@ return [
         */
 
         'method' => env('UNREAL_RPC_METHOD', 'websockets'),
-
-        /*
-        | The username and password defined in "rpc.modules.default.conf".
-        */
-
-        'user' => [
-            'username' => env('UNREAL_RPC_USER_USERNAME', 'apiuser'),
-            'password' => env('UNREAL_RPC_USER_PASSWORD', 'password'),
-        ]
-
     ],
+
+    /*
+     | Should we check that an SSL/TLS Certificate is valid?
+     |
+     | It is *strongly* recommended you leave this as true.
+    */
+    'tls_verify' => env('UNREAL_TLS_VERIFY', true),
 
 ];

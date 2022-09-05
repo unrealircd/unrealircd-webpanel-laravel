@@ -10,9 +10,9 @@
         </button>
 
         <div class="w-100 px-3 d-flex align-items-center justify-content-between">
-            <div class="text-white">{{ __('Hi') }}, {{ $page.props.user?.name ?? __('IRC User') }}</div>
+            <div class="text-white">{{ __('Hi') }}, {{ $page.props.auth?.user?.username ?? __('IRC User') }}</div>
             <div class="">
-                <x-link class="link text-white text-decoration-none" href="#">{{ __('Sign out') }}</x-link>
+                <button type="button" class="link signout-link" @click.prevent="signout">{{ __('Sign out') }}</button>
             </div>
         </div>
     </nav>
@@ -66,9 +66,9 @@
 </template>
 
 <script>
-import { ref, defineComponent } from 'vue'
-import { useForm } from '@inertiajs/inertia-vue3';
+import { defineComponent } from 'vue'
 import { BDropdown, useToast } from "bootstrap-vue-3";
+import { Inertia } from '@inertiajs/inertia';
 
 const languages = [
     { value: 'en', name: window.__('English') },
@@ -111,8 +111,18 @@ export default defineComponent({
     },
 
     methods: {
-        doClick() {
-            alert("Click!")
+        signout() {
+            window.axios.post(route('signout')).then(res => {
+                if(res.data) {
+                    this.toast.show({
+                        title: window.__('Success!'),
+                        body: window.__('You have been signed out.')
+                    }, {
+                        variant: 'success',
+                    });
+                    Inertia.visit(route('login'))
+                }
+            });
         },
 
         getLanguage() {
@@ -202,5 +212,13 @@ main {
 
 .link:hover {
     color: #d8ddd8 !important;
+}
+
+.signout-link {
+    color: #fff;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    box-shadow: none;
 }
 </style>

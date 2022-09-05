@@ -31,9 +31,6 @@ Route::post('/bans', [BanController::class, 'create']); // middleware: auth
 Route::put('/bans', [BanController::class, 'store']); // middleware: auth
 Route::delete('/bans', [BanController::class, 'destroy']); // middleware: auth
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
-
 Route::get('/test', TestController::class)->name('test');
+
+require_once __DIR__ . '/auth.php';
