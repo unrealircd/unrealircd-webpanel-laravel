@@ -3,19 +3,15 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Carbon\CarbonInterface;
-use Carbon\CarbonInterval;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Inertia\Inertia;
 use Inertia\Response;
 use Psr\SimpleCache\InvalidArgumentException;
-use Redirect;
 use UnrealIRCd\Ban;
-use UnrealIRCd\Channel;
-use UnrealIRCd\User;
-use \Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class BanController extends Controller
 {
@@ -23,19 +19,20 @@ class BanController extends Controller
 
     private string $credentials;
 
-    public function __construct()
+    private function setup()
     {
-        $this->url = sprintf('%s://%s:%s@%s:%s/api',
-            in_array(config('unrealircd.rpc.method'), ['websockets', 'wss', 'wockets', 'websocks']) ? 'wss' : 'https',
-            config('unrealircd.rpc.user.username'),
-            config('unrealircd.rpc.user.password'),
-            config('unrealircd.server.host'),
-            config('unrealircd.server.port')
-        );
+        $user = auth()->user();
 
         $this->credentials = sprintf("%s:%s",
-            config('unrealircd.rpc.user.username'),
-            config('unrealircd.rpc.user.password')
+            $user->username,
+            Crypt::decryptString(session('user_password'))
+        );
+
+        $this->url = sprintf('%s://%s@%s:%s/api',
+            in_array(config('unrealircd.rpc.method'), ['websockets', 'wss', 'wockets', 'websocks']) ? 'wss' : 'https',
+            $this->credentials,
+            config('unrealircd.server.host'),
+            config('unrealircd.server.port')
         );
     }
 
@@ -45,6 +42,8 @@ class BanController extends Controller
      */
     public function index(): Response|JsonResponse
     {
+        $this->setup();
+
         if (!cache()->has('irc_lines')) {
             $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
@@ -62,6 +61,8 @@ class BanController extends Controller
 
     public function create(Request $request)
     {
+        $this->setup();
+
         try {
             $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
@@ -83,6 +84,8 @@ class BanController extends Controller
 
     public function store(Request $request)
     {
+        $this->setup();
+
         try {
             $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 
@@ -108,6 +111,8 @@ class BanController extends Controller
 
     public function destroy(Request $request)
     {
+        $this->setup();
+
         try {
             $bans = new Ban($this->url, $this->credentials, ["tls_verify" => config('unrealircd.tls_verify')]);
 

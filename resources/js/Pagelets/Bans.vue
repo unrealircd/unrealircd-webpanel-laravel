@@ -18,7 +18,7 @@
             <b-tr>
                 <b-th>{{ __('Type') }}</b-th>
                 <b-th>{{ __('Name') }}</b-th>
-                <b-th>{{ __('Length' )}}</b-th>
+                <b-th>{{ __('Expires At' )}}</b-th>
                 <b-th>{{ __('Reason') }} </b-th>
                 <b-th>{{ __('Set At') }}</b-th>
                 <b-th>{{ __('Set By') }}</b-th>
@@ -29,9 +29,9 @@
             <b-tr v-for="ban in bans" :key="ban.type_string">
                 <b-td>{{ ban.type_string }}</b-td>
                 <b-td>{{ ban.name }}</b-td>
-                <b-td>{{ ban.length }}</b-td>
+                <b-td>{{ ban.expire_at === null ? 'Never' : new Date(ban.expire_at).toLocaleString() }}</b-td>
                 <b-td>{{ ban.reason }}</b-td>
-                <b-td>{{ ban.set_at_string }}</b-td>
+                <b-td>{{ new Date(ban.set_at_string).toLocaleString() }}</b-td>
                 <b-td>{{ ban.set_by }}</b-td>
                 <b-td>
                     <b-button variant="danger">Delete</b-button>

@@ -2,9 +2,9 @@
     <b-tr>
         <b-td>{{ ban.type_string }}</b-td>
         <b-td>{{ ban.name }}</b-td>
-        <b-td>{{ new Date(ban.expire_at).toUTCString() }}</b-td>
+        <b-td>{{ ban.expire_at === null ? 'Never' : new Date(ban.expire_at).toLocaleString() }}</b-td>
         <b-td>{{ ban.reason }}</b-td>
-        <b-td>{{ ban.set_at_string }}</b-td>
+        <b-td>{{ new Date(ban.set_at_string).toLocaleString() }}</b-td>
         <b-td>{{ ban.set_by }}</b-td>
         <b-td class="d-flex gap-2">
             <b-button size="sm" v-b-modal="`edit-modal-ban-${id}`" variant="primary">{{ __('Edit') }}</b-button>
