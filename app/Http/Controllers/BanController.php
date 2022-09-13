@@ -39,6 +39,7 @@ class BanController extends Controller
     /**
      * @return Response|JsonResponse
      * @throws InvalidArgumentException
+     * @throws Exception
      */
     public function index(): Response|JsonResponse
     {

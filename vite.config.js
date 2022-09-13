@@ -15,14 +15,18 @@ export default defineConfig({
         vue({
             template: {
                 transformAssetUrls: {
-                    base: 'https://unreal.test/',
+                    base: null,
                     includeAbsolute: false,
                 },
             },
         }),
     ],
+    resolve: {
+        alias: {
+            "@": "/resources/js"
+        }
+    }
 })
-;
 
 function detectServerConfig() {
     let host = 'unreal.test';
@@ -34,10 +38,7 @@ function detectServerConfig() {
         return {};
     }
 
-    console.log(host);
-
     return {
-        hmr: { host },
         host,
         https: {
             key: fs.readFileSync(keyPath),
