@@ -1,20 +1,6 @@
 <template>
     <h2>Users</h2>
 
-    <div class="mb-4 bg-dark rounded-3 bg-opacity-25">
-        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">{{ __('Filter Table') }}</h6>
-        <div
-            class="px-3 py-2 d-flex justify-content-sm-between align-content-sm-center align-items-sm-center flex-column flex-sm-row">
-            <b-form-radio-group v-model="form.checkSelected" :options="filterOptions"
-                                class="align-self-sm-center d-flex justify-content-between flex-column flex-sm-row"
-                                @change="this.checkboxChecked"
-                                value-field="item" text-field="name" disabled-field="notEnabled">
-            </b-form-radio-group>
-
-            <b-button variant="primary" @click.prevent="resetFilters">{{ __('Clear Filters') }}</b-button>
-        </div>
-    </div>
-
     <b-table-simple hover responsive>
         <b-button variant="secondary" class="my-2" size="sm" @click.prevent="toggleHost">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -78,12 +64,6 @@
 import { ref, defineComponent } from 'vue'
 import { useForm } from "@inertiajs/inertia-vue3";
 
-const filterOptions = [
-    { item: 'hide_services', name: __('Hide Services Bots') },
-    { item: 'hide_bots', name: ('Hide Bots') },
-    { item: 'only_tls', name: ('Show only TLS Users') },
-]
-
 export default defineComponent({
     name: "Users",
 
@@ -94,15 +74,6 @@ export default defineComponent({
             __: window.__,
             show_realhost: false,
             users: this.base_users,
-            form: useForm({
-                checkSelected: [],
-            }),
-        }
-    },
-
-    setup() {
-        return {
-            filterOptions
         }
     },
 
@@ -116,45 +87,6 @@ export default defineComponent({
         toggleHost() {
             this.show_realhost = !this.show_realhost;
         },
-
-        resetFilters() {
-            this.form.checkSelected = [];
-            this.users = this.base_users
-        },
-
-        checkboxChecked() {
-            this.users = this.base_users;
-            const users = this.base_users;
-            const new_users_list = [];
-            console.log(this.form.checkSelected)
-
-            if (this.form.checkSelected[0] === 'hide_services') {
-                for (let i = 0; i < users.length; i++) {
-                    if (!users[i].user.modes.includes('S')) {
-                        new_users_list.push(users[i]);
-                    }
-                }
-                this.users = new_users_list;
-            }
-
-            if (this.form.checkSelected[0] === 'hide_bots') {
-                for (let i = 0; i < users.length; i++) {
-                    if (!users[i].user.modes.includes('B')) {
-                        new_users_list.push(users[i]);
-                    }
-                }
-                this.users = new_users_list;
-            }
-
-            if (this.form.checkSelected[0] === 'only_tls') {
-                for (let i = 0; i < users.length; i++) {
-                    if (users[i].user.modes.includes('z')) {
-                        new_users_list.push(users[i]);
-                    }
-                }
-                this.users = new_users_list;
-            }
-        }
     }
 });
 </script>

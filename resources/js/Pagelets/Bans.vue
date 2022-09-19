@@ -1,18 +1,6 @@
 <template>
     <h2>{{ __('Bans')  }}</h2>
 
-    <div class="mb-4 bg-dark rounded-3 bg-opacity-25">
-        <h6 class="bg-dark rounded-top px-3 py-2 text-white text-uppercase mb-0">{{ __('Filter Table') }}</h6>
-        <div class="px-3 py-2 d-flex justify-content-between align-content-center align-items-center">
-            <b-form-radio-group v-model="form.checkSelected" :options="filterOptions" class="align-self-center"
-                                @change="this.checkboxChecked"
-                                value-field="item" text-field="name" disabled-field="notEnabled">
-            </b-form-radio-group>
-
-            <b-button variant="primary" @click.prevent="resetFilters">{{ __('Clear Filters') }}</b-button>
-        </div>
-    </div>
-
     <b-table-simple hover responsive>
         <b-thead head-variant="dark">
             <b-tr>
@@ -34,7 +22,13 @@
                 <b-td>{{ new Date(ban.set_at_string).toLocaleString() }}</b-td>
                 <b-td>{{ ban.set_by }}</b-td>
                 <b-td>
-                    <b-button variant="danger">Delete</b-button>
+                    <b-button size="sm" variant="danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-2">
+                            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+                        </svg>
+
+                        <span>{{ __('Delete') }}</span>
+                    </b-button>
                 </b-td>
             </b-tr>
         </b-tbody>
@@ -43,15 +37,6 @@
 
 <script>
 import { ref, defineComponent } from 'vue'
-import { useForm } from "@inertiajs/inertia-vue3";
-
-const filterOptions = [
-    { item: 'only_glines', name: __('Only G-Lines') },
-    { item: 'only_zlines', name: __('Only Z-Lines') },
-    { item: 'only_klines', name: __('Only K-Lines') },
-    { item: 'only_gzlines', name: __('Only GZ-Lines') },
-    { item: 'only_shun', name: __('Only SHUN') },
-]
 
 export default defineComponent({
     name: "Bans",
@@ -62,15 +47,6 @@ export default defineComponent({
         return {
             __: window.__,
             bans: this.base_bans,
-            form: useForm({
-                checkSelected: [],
-            }),
-        }
-    },
-
-    setup() {
-        return {
-            filterOptions
         }
     },
 
@@ -81,66 +57,15 @@ export default defineComponent({
     },
 
     methods: {
-        resetFilters() {
-            this.form.checkSelected = [];
-            this.bans = this.base_bans
-        },
 
-        checkboxChecked() {
-            this.bans = this.base_bans;
-            const bans = this.base_bans;
-            const new_bans_list = [];
-            console.log(this.form.checkSelected)
-
-            if (this.form.checkSelected[0] === 'only_glines') {
-                for (let i = 0; i < (bans.length > 10 ? 10 : bans.length); i++) {
-                    if (bans[i].type === 'gline') {
-                        new_bans_list.push(bans[i]);
-                    }
-                }
-                this.bans = new_bans_list;
-            }
-
-            if (this.form.checkSelected[0] === 'only_zlines') {
-                for (let i = 0; i < bans.length; i++) {
-                    if (bans[i].type === 'zline') {
-                        new_bans_list.push(bans[i]);
-                    }
-                }
-                this.bans = new_bans_list;
-            }
-
-            if (this.form.checkSelected[0] === 'only_klines') {
-                for (let i = 0; i < bans.length; i++) {
-                    if (bans[i].type === 'kline') {
-                        new_bans_list.push(bans[i]);
-                    }
-                }
-                this.bans = new_bans_list;
-            }
-
-            if (this.form.checkSelected[0] === 'only_gzlines') {
-                for (let i = 0; i < bans.length; i++) {
-                    if (!bans[i].type === 'gzline') {
-                        new_bans_list.push(bans[i]);
-                    }
-                }
-                this.bans = new_bans_list;
-            }
-
-            if (this.form.checkSelected[0] === 'only_shun') {
-                for (let i = 0; i < bans.length; i++) {
-                    if (!bans[i].type === 'shun') {
-                        new_bans_list.push(bans[i]);
-                    }
-                }
-                this.bans = new_bans_list;
-            }
-        }
     }
 });
 </script>
 
 <style scoped>
-
+svg {
+    width: 16px;
+    height: 16px;
+    margin-right: .425rem;
+}
 </style>
