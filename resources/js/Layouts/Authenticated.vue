@@ -31,7 +31,7 @@
                     :active="route().current('channels')">
                 {{ __('Channels') }}
             </x-link>
-            <x-link router-tag="x-link" class="nav-item" exact-active-class="active" exact :href="route('bans')"
+            <x-link router-tag="x-link" class="nav-item" exact-active-class="active" exact :href="route('bans.index')"
                     :active="route().current('bans')">
                 {{ __('Bans') }}
             </x-link>

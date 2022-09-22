@@ -19,7 +19,7 @@
             <b-modal header-bg-variant="danger" header-text-variant="light" centered
                      ok-title="Delete" ok-variant="danger" @ok.once="deleteBan()"
                      :id="`delete-modal-ban-${id}`" title="Are you sure?">
-                <p>{{ __('Are you sure you want to remove this :ban', ban.type_string)}}?</p>
+                <p>{{ __('Are you sure you want to remove this :ban', _ban.type_string)}}?</p>
             </b-modal>
 
             <b-modal centered
@@ -28,19 +28,19 @@
                 <b-form>
                     <b-form-group :label="__('Name')" label-for="name"
                                   :escription="__('To change the host/ip mask, please create a new entry.')">
-                        <b-form-input id="name" type="text" v-model="_ban.name" disabled/>
+                        <b-form-input id="name" type="text" v-model="ban.name" disabled/>
                     </b-form-group>
 
                     <b-form-group :label="__('Expires At')" label-for="date" description="Please pick a date and time">
                         <div class="d-flex gap-2">
-                            <input class="form-control" type="date" id="date" v-model="_ban.date"/>
+                            <input class="form-control" type="date" id="date" v-model="ban.date"/>
                             <input class="form-control" type="time" step="1" id="time" min="00:00:00" max="23:59:59"
-                                   v-model="_ban.time"/>
+                                   v-model="ban.time"/>
                         </div>
                     </b-form-group>
 
                     <b-form-group :label="__('Reason')" label-for="reason">
-                        <b-form-input :label="__('Reason')" id="reason" type="text" v-model="_ban.reason"/>
+                        <b-form-input :label="__('Reason')" id="reason" type="text" v-model="ban.reason"/>
                     </b-form-group>
                 </b-form>
             </b-modal>
@@ -51,12 +51,13 @@
 <script>
 import { ref, defineComponent } from 'vue';
 import { useToast } from 'bootstrap-vue-3';
+import { useForm } from "@inertiajs/inertia-vue3";
 
 export default defineComponent({
     name: "Ban",
 
     props: {
-        ban: {
+        _ban: {
             type_string: String,
             name: String,
             reason: String,
@@ -77,42 +78,37 @@ export default defineComponent({
     data() {
         return {
             __: window.__,
-            _ban: this.ban
+            ban: {}
         }
     },
 
     created() {
-        this._ban.date = new Date(this.ban.expire_at).toISOString().slice(0, 10);
-        this._ban.time = new Date(this.ban.expire_at).toISOString().slice(11, 19);
+        this.ban = useForm(this._ban);
+        this.ban.date = new Date(this._ban.expire_at).toISOString().slice(0, 10);
+        this.ban.time = new Date(this._ban.expire_at).toISOString().slice(11, 19);
     },
 
     methods: {
         editBan() {
-            window.axios.put(route('bans'), this._ban)
-                .then(res => {
-                    if (res.data.type === "success") {
-                        this.toast.show({
-                            title: window.__('Success!'),
-                            body: res.data.message
-                        }, {
-                            variant: 'success',
-                        });
-
-                        window.location.reload();
-                    }
-                })
-                .catch(e => {
+            this.ban.put(route('bans.update'), {
+                onSuccess: () => {
+                    console.log("pass")
+                    window.location.reload();
+                },
+                onError: (e) => {
                     this.toast.show({
-                        title: window.__('Something went wrong'),
+                        title: __('Something went wrong'),
                         body: e.response.data.message
                     }, {
                         variant: 'danger',
+                        solid: true,
                     })
-                });
+                }
+            });
         },
 
         deleteBan() {
-            window.axios.delete(route('bans'), { data: this.ban })
+            window.axios.delete(route('bans.destroy'), { data: this.ban })
                 .then(res => {
                     if (res.data.type === "success") {
                         this.toast.show({

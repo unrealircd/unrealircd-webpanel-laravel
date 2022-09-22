@@ -18,7 +18,7 @@
             </b-tr>
         </b-thead>
         <b-tbody>
-            <ban v-for="(ban, i) in bans" :key="ban.type_string" :ban="ban" :id="i"/>
+            <ban v-for="(ban, i) in bans" :key="ban.type_string" :_ban="ban" :id="i"/>
         </b-tbody>
     </b-table-simple>
 
@@ -120,7 +120,7 @@ export default defineComponent({
         },
 
         createBan() {
-            this.ban.post(route('bans'), {
+            this.ban.post(route('bans.store'), {
                 onSuccess: (res) => {
                     window.location.reload();
                 },

@@ -60,7 +60,7 @@ class BanController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $this->setup();
 
@@ -83,7 +83,7 @@ class BanController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $this->setup();
 
