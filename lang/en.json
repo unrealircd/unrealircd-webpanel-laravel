@@ -26,6 +26,18 @@
     "Sign in": "Sign in",
     "You have been signed out.": "You have been signed out.",
 
+    "This certificate is self-signed. We recommend using Let's Encrypt for SSL in a production scenario.": "This certificate is self-signed. We recommend using Let's Encrypt for SSL in a production scenario.",
+    "Issued by": "Issued by",
+    "Signed by": "Signed by",
+    ":version installed": ":version installed",
+    "Minimum :version required": "Minimum :version required",
+    "FAIL": "FAIL",
+    "Pass": "Pass",
+    "installer": "installer",
+    "PHP Version": "PHP Version",
+    "SQLite 3": "SQLite 3",
+    "SSL": "SSL",
+
     "Basic Stats": "Basic Stats",
     "Clear Filters": "Clear Filters",
     "Filter Table": "Filter Table",

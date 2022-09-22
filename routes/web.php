@@ -5,11 +5,13 @@ use App\Http\Controllers\{
     ChannelController,
     DashboardController,
     IndexController,
+    InstallController,
     SpamfilterController,
     UserController,
     LanguageController};
 use Illuminate\Support\Facades\Route;
 
+Route::get('/install', InstallController::class)->name('install');
 
 Route::get('/', IndexController::class)->name('index');
 
