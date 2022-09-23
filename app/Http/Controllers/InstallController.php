@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class InstallController extends Controller
 {
@@ -56,5 +59,21 @@ class InstallController extends Controller
         ];
 
         return Inertia::render('Install', compact('checks'));
+    }
+
+    public function check_one(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'app_name' => ['required', 'string'],
+            'app_url' => ['required', 'active_url'],
+        ]);
+
+        if($validator->passes()) {
+            return response()->json([], HttpResponse::HTTP_OK);
+        } else {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], HttpResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }

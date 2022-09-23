@@ -12,6 +12,7 @@ use App\Http\Controllers\{
 use Illuminate\Support\Facades\Route;
 
 Route::get('/install', InstallController::class)->name('install');
+Route::post('/install/check/one', [InstallController::class, 'check_one'])->name('install.check.one');
 
 Route::get('/', IndexController::class)->name('index');
 
