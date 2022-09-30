@@ -42,7 +42,7 @@
                 {{ __('Debug Mode is currently enabled.') }}
             </b-alert>
             <div class="container-fluid px-md-4">
-                <slot/>
+                <slot />
 
                 <div class="small mb-3 text-muted d-flex align-items-center gap-2">
                     <span>Copyright &copy; 1999 – {{ new Date().getFullYear() }} UnrealIRCd</span>
@@ -51,7 +51,8 @@
                         <div class="d-flex gap-1 align-items-center">
                             <span>Language</span>
                             <b-dropdown dropup size="sm" id="lang-dropdown" :text="langs.name" class="my-md-2">
-                                <b-dropdown-item v-for="lang in languages" :key="lang.value" :href="route('lang', { 'lang': lang.value })">
+                                <b-dropdown-item v-for="lang in languages" :key="lang.value"
+                                                 :href="route('lang', { 'lang': lang.value })">
                                     {{ lang.name }}
                                 </b-dropdown-item>
                             </b-dropdown>
@@ -61,7 +62,7 @@
             </div>
         </main>
 
-        <b-container :toast="{root:true}" class="topper" fluid="sm" position="position-sticky"/>
+        <b-container :toast="{root:true}" class="topper" fluid="sm" position="position-sticky" />
     </div>
 </template>
 
@@ -71,113 +72,114 @@ import { BDropdown, useToast } from "bootstrap-vue-3";
 import { Inertia } from '@inertiajs/inertia';
 
 const languages = [
-    { value: 'en', name: window.__('English') },
-    { value: 'tr', name: window.__('Turkish') },
+  { value: 'en', name: window.__('English') },
+  { value: 'tr', name: window.__('Turkish') },
+  { value: 'es', name: window.__('Spanish') }
 ]
 
 export default defineComponent({
-    name: "Authenticated",
-    components: { BDropdown },
+  name: "Authenticated",
+  components: { BDropdown },
 
-    setup() {
-        let toast = useToast();
+  setup() {
+    let toast = useToast();
 
-        return {
-            toast,
-            languages,
-        }
-    },
-
-    created() {
-        this.getLanguage();
-
-        setTimeout(() => {
-            if (this.$page.props.flash.data) {
-                this.toast.show({
-                    title: this.$page.props.flash.data.title,
-                    body: this.$page.props.flash.data.message
-                }, {
-                    variant: this.$page.props.flash.data.type,
-                });
-            }
-        }, 500);
-    },
-
-    data() {
-        return {
-            langs: {},
-            __: window.__,
-        }
-    },
-
-    methods: {
-        signout() {
-            window.axios.post(route('signout')).then(res => {
-                if(res.data) {
-                    this.toast.show({
-                        title: window.__('Success!'),
-                        body: window.__('You have been signed out.')
-                    }, {
-                        variant: 'success',
-                    });
-                    Inertia.visit(route('login'))
-                }
-            });
-        },
-
-        getLanguage() {
-            for (let i = 0; i < languages.length; i++) {
-                if (languages[i].value === this.$page.props.app.lang) {
-                    this.langs = languages[i];
-                    return;
-                }
-            }
-        },
+    return {
+      toast,
+      languages,
     }
+  },
+
+  created() {
+    this.getLanguage();
+
+    setTimeout(() => {
+      if (this.$page.props.flash.data) {
+        this.toast.show({
+          title: this.$page.props.flash.data.title,
+          body: this.$page.props.flash.data.message
+        }, {
+          variant: this.$page.props.flash.data.type,
+        });
+      }
+    }, 500);
+  },
+
+  data() {
+    return {
+      langs: {},
+      __: window.__,
+    }
+  },
+
+  methods: {
+    signout() {
+      window.axios.post(route('signout')).then(res => {
+        if (res.data) {
+          this.toast.show({
+            title: window.__('Success!'),
+            body: window.__('You have been signed out.')
+          }, {
+            variant: 'success',
+          });
+          Inertia.visit(route('login'))
+        }
+      });
+    },
+
+    getLanguage() {
+      for (let i = 0; i < languages.length; i++) {
+        if (languages[i].value === this.$page.props.app.lang) {
+          this.langs = languages[i];
+          return;
+        }
+      }
+    },
+  }
 })
 </script>
 
 <style scoped lang="scss">
 main {
-    height: 100vh;
+  height: 100vh;
 }
 
 .sidebar {
-    position: fixed;
-    top: 1px;
-    bottom: 0;
-    left: 0;
-    z-index: 1; /* Behind the navbar */
-    padding: 48px 0 0; /* Height of navbar */
+  position: fixed;
+  top: 1px;
+  bottom: 0;
+  left: 0;
+  z-index: 1; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
 }
 
 @media (max-width: 767.98px) {
-    .sidebar {
-        top: 5rem;
-    }
+  .sidebar {
+    top: 5rem;
+  }
 }
 
 .nav-item {
-    margin: .4rem;
-    font-weight: 500;
-    color: #333 !important;
-    display: block;
-    padding: .725rem .925rem;
-    text-decoration: none;
-    border-radius: .325rem;
+  margin: .4rem;
+  font-weight: 500;
+  color: #333 !important;
+  display: block;
+  padding: .725rem .925rem;
+  text-decoration: none;
+  border-radius: .325rem;
 
-    &:hover {
-        background: #3399ff77;
-    }
+  &:hover {
+    background: #3399ff77;
+  }
 }
 
 .nav-item.active {
-    color: #fff !important;
-    background: #3399ff;
+  color: #fff !important;
+  background: #3399ff;
 }
 
 .sidebar-heading {
-    font-size: .75rem;
+  font-size: .75rem;
 }
 
 /*
@@ -185,40 +187,40 @@ main {
  */
 
 .navbar-brand {
-    background-color: #212529;
-    z-index: 100;
-    height: 32px;
+  background-color: #212529;
+  z-index: 100;
+  height: 32px;
 }
 
 .navbar .navbar-toggler {
-    top: .25rem;
-    right: 1rem;
+  top: .25rem;
+  right: 1rem;
 }
 
 .navbar .form-control {
-    padding: .75rem 1rem;
+  padding: .75rem 1rem;
 }
 
 .form-control-dark {
-    color: #fff;
-    background-color: rgba(255, 255, 255, .1);
-    border-color: rgba(255, 255, 255, .1);
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
 }
 
 .form-control-dark:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
 .link:hover {
-    color: #d8ddd8 !important;
+  color: #d8ddd8 !important;
 }
 
 .signout-link {
-    color: #fff;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    box-shadow: none;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  box-shadow: none;
 }
 </style>

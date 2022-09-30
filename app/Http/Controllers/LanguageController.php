@@ -8,7 +8,7 @@ class LanguageController extends Controller
 {
     public function __invoke(string $language)
     {
-        if(in_array($language, ['en', 'tr'])) {
+        if(in_array($language, ['en', 'tr', 'es'])) {
             session()->put('_lang', $language);
 
             app()->setLocale($language);
