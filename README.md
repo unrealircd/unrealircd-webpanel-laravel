@@ -26,6 +26,25 @@ npm run dev
 
 This will run the Vite dev server and changes will be reflected immediately in the browser.
 
+**If you're not running SSL in local dev mode, remove the following except from `vite.config.js` found on lines 11 - 25**
+```sh
+if(fs.existsSync(`${os.homedir()}/easyrsa`)) {
+    if (os.platform() === "linux") {
+        server = {
+            https: {
+                key: fs.readFileSync(
+                    `${os.homedir()}/easyrsa/pki/private/Unreal.key`
+                ),
+                cert: fs.readFileSync(
+                    `${os.homedir()}/easyrsa/pki/issued/Unreal.crt`
+                ),
+            },
+            host: "unreal.test",
+        };
+    }
+}
+```
+
 To access the project: 
 ```sh
 php artisan serve

@@ -55,21 +55,27 @@
                             <span v-else class="text-danger fw-bolder">&cross; {{ __('FAIL') }}</span>
                         </div>
                         <div class="w-75">
-                            <h5 class="mb-0">{{ __('SSL') }}</h5>
-                            <p class="small text-black-50 mb-0">{{ __('Required') }}</p>
-                            <b-alert show variant="danger" v-if="checks.ssl.validity === false" class="my-2">
-                                {{ __("This certificate is self-signed. We recommend using Let's Encrypt for SSL in a production scenario.")
+                            <b-alert show variant="info" v-if="env === 'local'" class="my-2">
+                                {{ __("SSL is not required in development mode.")
                                 }}
                             </b-alert>
-                            <p class="mb-0 small">{{ __('Issued by') }} <strong>{{ checks.ssl.issuer }}</strong></p>
-                            <p class="mb-0 small" v-if="checks.ssl.validity !== false">
-                                {{ __('Signed by') }}
-                                <strong>{{ checks.ssl.validity }}</strong>
-                            </p>
-                            <p class="mb-0" v-if="checks.ssl.validity !== false">
-                                {{ __('Expires At') }}
-                                <strong>{{ checks.ssl.cert_expiry }}</strong>
-                            </p>
+                            <div v-else>
+                                <h5 class="mb-0">{{ __('SSL') }}</h5>
+                                <p class="small text-black-50 mb-0">{{ __('Required') }}</p>
+                                <b-alert show variant="danger" v-if="checks.ssl.validity === false" class="my-2">
+                                    {{ __("This certificate is self-signed. We recommend using Let's Encrypt for SSL in a production scenario.")
+                                    }}
+                                </b-alert>
+                                <p class="mb-0 small">{{ __('Issued by') }} <strong>{{ checks.ssl.issuer }}</strong></p>
+                                <p class="mb-0 small" v-if="checks.ssl.validity !== false">
+                                    {{ __('Signed by') }}
+                                    <strong>{{ checks.ssl.validity }}</strong>
+                                </p>
+                                <p class="mb-0" v-if="checks.ssl.validity !== false">
+                                    {{ __('Expires At') }}
+                                    <strong>{{ checks.ssl.cert_expiry }}</strong>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </b-list-group-item>
@@ -86,6 +92,42 @@
         <b-form class="form-setup-form w-100" @submit="setup_1">
             <b-card class="my-4 w-50 mx-auto" no-body
                     :header="`${$page.props.app.name} ${__('installer')} - Step 2`"
+                    header-tag="header"
+            >
+                <b-card-body>
+                    <div class="form-setup m-auto">
+                        <b-form-group id="fieldset-1" :label="__('App Name')"
+                                      label-for="app_name" label-class="mb-1">
+                            <b-form-input id="app_name" v-model="form.app_name"
+                                          @blur="writeToLocalStorage('app_name', form.app_name)"></b-form-input>
+                            <p class="text-danger" v-if="form.errors.app_name">{{ form.errors.app_name.toString() }}</p>
+                        </b-form-group>
+
+                        <b-form-group id="fieldset-2" :label="__('App URL')"
+                                      label-for="app_url" label-class="mb-1">
+                            <b-form-input id="app_url" v-model="form.app_url"
+                                          @blur="writeToLocalStorage('app_url', form.app_url)"></b-form-input>
+                            <p class="text-danger" v-if="form.errors.app_url">{{ form.errors.app_url.toString() }}</p>
+                        </b-form-group>
+                    </div>
+                </b-card-body>
+                <b-card-footer class="d-flex justify-content-between">
+                    <b-button variant="dark" @click.prevent="clearStorage">
+                        Reset
+                    </b-button>
+
+                    <b-button variant="success" type="submit">
+                        Next Step
+                    </b-button>
+                </b-card-footer>
+            </b-card>
+        </b-form>
+    </div>
+
+    <div v-if="step === 3">
+        <b-form class="form-setup-form w-100" @submit="setup_2">
+            <b-card class="my-4 w-50 mx-auto" no-body
+                    :header="`${$page.props.app.name} ${__('installer')} - Step 3`"
                     header-tag="header"
             >
                 <b-card-body>
@@ -147,6 +189,7 @@ export default {
 
     setup() {
         return {
+            env: import.meta.env.VITE_ENV,
             toast: useToast(),
         }
     },
@@ -189,7 +232,6 @@ export default {
             if (num === null) {
                 this.step += 1;
                 this.hash = `step=${this.step}`;
-                this.clearStorage();
             } else {
                 this.step = num;
                 this.hash = `step=${num}`;
@@ -207,11 +249,15 @@ export default {
         setup_1() {
             window.axios.post(route('install.check.one'), this.form).then(res => {
                 console.log('success')
-                //    this.nextStep();
+                this.nextStep();
             }).catch(e => {
                 this.form.errors = e.response.data.errors;
                 this.toast.danger(__('Whoops, something went wrong.'))
             })
+        },
+
+        setup_2() {
+
         }
     }
 }

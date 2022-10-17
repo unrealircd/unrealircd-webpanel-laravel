@@ -26,6 +26,7 @@
     "Sign in": "Sign in",
     "You have been signed out.": "You have been signed out.",
 
+    "SSL is not required in development mode.": "SSL is not required in development mode.",
     "This certificate is self-signed. We recommend using Let's Encrypt for SSL in a production scenario.": "This certificate is self-signed. We recommend using Let's Encrypt for SSL in a production scenario.",
     "Issued by": "Issued by",
     "Signed by": "Signed by",

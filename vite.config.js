@@ -4,9 +4,28 @@ import vue from '@vitejs/plugin-vue';
 import { homedir } from 'os';
 import { resolve } from 'path';
 import fs from 'fs';
+import os from 'os'
+
+let server = {};
+
+/*if(fs.existsSync(`${os.homedir()}/easyrsa`)) {
+    if (os.platform() === "linux") {
+        server = {
+            https: {
+                key: fs.readFileSync(
+                    `${os.homedir()}/easyrsa/pki/private/Unreal.key`
+                ),
+                cert: fs.readFileSync(
+                    `${os.homedir()}/easyrsa/pki/issued/Unreal.crt`
+                ),
+            },
+            host: "unreal.test",
+        };
+    }
+}*/
 
 export default defineConfig({
-    server: detectServerConfig(),
+    server,
     plugins: [
         laravel({
             input: 'resources/js/app.js',
@@ -27,22 +46,3 @@ export default defineConfig({
         }
     }
 })
-
-function detectServerConfig() {
-    let host = 'unreal.test';
-
-    let keyPath = resolve(homedir(), `.config/valet/Certificates/${host}.key`)
-    let certificatePath = resolve(homedir(), `.config/valet/Certificates/${host}.crt`)
-
-    if (!fs.existsSync(keyPath) || !fs.existsSync(certificatePath)) {
-        return {};
-    }
-
-    return {
-        host,
-        https: {
-            key: fs.readFileSync(keyPath),
-            cert: fs.readFileSync(certificatePath)
-        }
-    }
-}

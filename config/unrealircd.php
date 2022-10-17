@@ -30,6 +30,8 @@ return [
         'method' => env('UNREAL_RPC_METHOD', 'websockets'),
     ],
 
+    'use_ssl' => env('UNREAL_USE_SSL', true),
+
     /*
      | Should we check that an SSL/TLS Certificate is valid?
      |
