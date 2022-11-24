@@ -40,7 +40,7 @@ Outside of this, you will need to create an `rpc-user {}` block as well as a `li
 For more information on configuring your UnrealIRCd for RPC, [check this link](https://www.unrealircd.org/docs/JSON-RPC)
 
 ## Running
-To access the project: 
+To run the webpanel: 
 ```sh
 php artisan serve
 ```
